@@ -1,23 +1,21 @@
 // Data structure for the spinner items
 const spinnerData = [
-  { imageSrc: 'images/apple.png', word: 'apple', initialSound: '/a/' },
-  { imageSrc: 'images/alligator.png', word: 'alligator', initialSound: '/a/' },
-  { imageSrc: 'images/anchor.png', word: 'anchor', initialSound: '/a/' },
-  { imageSrc: 'images/ball.png', word: 'ball', initialSound: '/b/' },
-  { imageSrc: 'images/banana.png', word: 'banana', initialSound: '/b/' },
-  { imageSrc: 'images/butterfly.png', word: 'butterfly', initialSound: '/b/' },
-  { imageSrc: 'images/cat.png', word: 'cat', initialSound: '/c/' },
-  { imageSrc: 'images/car.png', word: 'car', initialSound: '/c/' },
-  { imageSrc: 'images/cupcake.png', word: 'cupcake', initialSound: '/c/' },
+  { imageSrc: 'images/a_alligator.webp', word: 'alligator', initialSound: '/a/' },
+  { imageSrc: 'images/a_amulet.webp', word: 'amulet', initialSound: '/a/' },
+  { imageSrc: 'images/a_anchor.webp', word: 'anchor', initialSound: '/a/' },
+  { imageSrc: 'images/a_ant.webp', word: 'ant', initialSound: '/a/' },
+  { imageSrc: 'images/a_apple.webp', word: 'apple', initialSound: '/a/' },
+  { imageSrc: 'images/a_arrow.webp', word: 'arrow', initialSound: '/a/' },
+  { imageSrc: 'images/a_astronaut.webp', word: 'astronaut', initialSound: '/a/' },
+  { imageSrc: 'images/a_ax.webp', word: 'ax', initialSound: '/a/' },
 ];
 
 // Initialize variables
 let selectedItem = null;
 
-// Function to initialize the spinner
+// Function to initialize the spinner (for future use)
 function initSpinner() {
-  // Implement spinner initialization using a library or custom code
-  // For the prototype, this can be a simplified version
+  // Implement spinner initialization if using a spinner library
 }
 
 // Event handler for the spin button
@@ -78,7 +76,7 @@ function checkAnswer(selectedSound) {
   
   // Show next button
   document.getElementById('next-button').style.display = 'inline-block';
-});
+}
 
 // Event handler for the next button
 document.getElementById('next-button').addEventListener('click', () => {
