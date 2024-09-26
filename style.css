@@ -1,0 +1,29 @@
+body {
+  text-align: center;
+  font-family: 'Arial', sans-serif;
+}
+
+#spinner-container {
+  margin: 20px auto;
+}
+
+#spin-button, .answer-button, #next-button {
+  padding: 10px 20px;
+  font-size: 18px;
+  margin: 10px;
+  cursor: pointer;
+}
+
+#question-container {
+  margin-top: 30px;
+}
+
+#selected-image {
+  width: 200px;
+  height: 200px;
+}
+
+#feedback-text {
+  font-size: 24px;
+  margin-top: 20px;
+}
