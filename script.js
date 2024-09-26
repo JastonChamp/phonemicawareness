@@ -52,6 +52,9 @@ const synth = window.speechSynthesis;
 
 // Function to start the application
 function startApplication() {
+  // Hide start container
+  document.getElementById('start-container').style.display = 'none';
+  // Begin the first spin
   spinWheel();
 }
 
@@ -177,11 +180,14 @@ function playBeep() {
   oscillator.stop(context.currentTime + 0.2); // Beep lasts 0.2 seconds
 }
 
-// Start the application
+// Initialize the application after user interaction
 window.onload = function() {
   if (!SpeechRecognition || !synth) {
     alert('Your browser does not support speech recognition or speech synthesis. Please try this application in a supported browser like Google Chrome.');
   } else {
-    startApplication();
+    // Wait for user interaction before starting the application
+    document.getElementById('start-button').addEventListener('click', () => {
+      startApplication();
+    });
   }
 };
