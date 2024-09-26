@@ -8,21 +8,6 @@ body {
   margin: 20px auto;
 }
 
-#spin-button, .answer-button, #next-button {
-  padding: 10px 20px;
-  font-size: 18px;
-  margin: 10px;
-  cursor: pointer;
-  background-color: #4CAF50;
-  color: white;
-  border: none;
-  border-radius: 8px;
-}
-
-#spin-button:hover, .answer-button:hover, #next-button:hover {
-  background-color: #45a049;
-}
-
 #question-container {
   margin-top: 30px;
 }
