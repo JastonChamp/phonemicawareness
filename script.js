@@ -47,7 +47,7 @@ let selectedItem = null;
 
 // Check for browser support of Web Speech API
 const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-const recognition = new SpeechRecognition();
+let recognition;
 const synth = window.speechSynthesis;
 
 // Function to start the application
@@ -89,21 +89,55 @@ function displayQuestion() {
 
 // Function to start listening to the user's response
 function startListening() {
+  console.log('Starting speech recognition...');
+
   recognition.lang = 'en-US';
+
+  // Ensure recognition is stopped before starting
+  recognition.abort();
+
   recognition.start();
 
+  recognition.onstart = function() {
+    console.log('Speech recognition started.');
+    // Show listening indicator
+    document.getElementById('listening-indicator').style.display = 'block';
+  };
+
+  recognition.onspeechstart = function() {
+    console.log('User started speaking.');
+  };
+
+  recognition.onspeechend = function() {
+    console.log('User stopped speaking.');
+    // Optionally stop recognition if speech has ended
+    recognition.stop();
+  };
+
   recognition.onresult = function(event) {
+    console.log('Speech recognition result received.');
+    // Hide listening indicator
+    document.getElementById('listening-indicator').style.display = 'none';
+
     const spokenWords = event.results[0][0].transcript;
+    console.log('User said:', spokenWords);
     checkAnswer(spokenWords);
   };
 
   recognition.onerror = function(event) {
-    console.error('Speech recognition error detected: ' + event.error);
+    // Hide listening indicator
+    document.getElementById('listening-indicator').style.display = 'none';
+
+    console.error('Speech recognition error detected:', event.error);
     speakText('Sorry, I did not catch that. Please try again.')
       .then(() => {
         playBeep();
         startListening();
       });
+  };
+
+  recognition.onend = function() {
+    console.log('Speech recognition ended.');
   };
 }
 
@@ -155,6 +189,8 @@ function speakText(text) {
   return new Promise((resolve, reject) => {
     const utterThis = new SpeechSynthesisUtterance(text);
     utterThis.lang = 'en-US';
+    utterThis.rate = 0.9; // Slower speech rate for clarity
+    utterThis.pitch = 1.0; // Default pitch
 
     utterThis.onend = function() {
       resolve();
@@ -185,9 +221,22 @@ window.onload = function() {
   if (!SpeechRecognition || !synth) {
     alert('Your browser does not support speech recognition or speech synthesis. Please try this application in a supported browser like Google Chrome.');
   } else {
+    recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
     // Wait for user interaction before starting the application
     document.getElementById('start-button').addEventListener('click', () => {
-      startApplication();
+      // Request microphone access
+      navigator.mediaDevices.getUserMedia({ audio: true })
+        .then(function(stream) {
+          // Microphone access granted
+          startApplication();
+        })
+        .catch(function(err) {
+          console.error('Microphone access denied:', err);
+          alert('Microphone access is required for this application to work.');
+        });
     });
   }
 };
