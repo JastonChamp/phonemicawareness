@@ -2,24 +2,22 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Phonemic Awareness Spinner</title>
+  <title>Phonemic Awareness Spinner - Voice Based</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div id="spinner-container">
+    <!-- The canvas for the spinner can remain if you wish to keep a visual element -->
     <canvas id="spinner-canvas" width="500" height="500"></canvas>
-    <button id="spin-button">Spin</button>
+    <button id="spin-button" style="display: none;">Spin</button> <!-- Hidden since we won't use it -->
   </div>
   <div id="question-container" style="display: none;">
     <img id="selected-image" alt="Selected Word">
     <p id="question-text"></p>
-    <div id="answer-options">
-      <button class="answer-button" data-sound="/a/">/a/</button>
-      <button class="answer-button" data-sound="/b/">/b/</button>
-      <button class="answer-button" data-sound="/c/">/c/</button>
-    </div>
+    <!-- Remove answer options buttons -->
+    <!-- Remove the answer-options div -->
     <p id="feedback-text"></p>
-    <button id="next-button" style="display: none;">Next</button>
+    <!-- Remove the next button -->
   </div>
   <script src="script.js"></script>
 </body>
