@@ -44,10 +44,7 @@ const spinnerData = [
 
 // Initialize variables
 let selectedItem = null;
-
-// Check for browser support of Web Speech API
-const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-let recognition;
+let recognition; // Declare recognition variable
 const synth = window.speechSynthesis;
 
 // Function to start the application
@@ -91,55 +88,79 @@ function displayQuestion() {
 function startListening() {
   console.log('Starting speech recognition...');
 
+  // Show listening indicator
+  document.getElementById('listening-indicator').style.display = 'block';
+
   recognition.lang = 'en-US';
 
-  // Ensure recognition is stopped before starting
-  recognition.abort();
-
   recognition.start();
-
-  recognition.onstart = function() {
-    console.log('Speech recognition started.');
-    // Show listening indicator
-    document.getElementById('listening-indicator').style.display = 'block';
-  };
-
-  recognition.onspeechstart = function() {
-    console.log('User started speaking.');
-  };
-
-  recognition.onspeechend = function() {
-    console.log('User stopped speaking.');
-    // Optionally stop recognition if speech has ended
-    recognition.stop();
-  };
-
-  recognition.onresult = function(event) {
-    console.log('Speech recognition result received.');
-    // Hide listening indicator
-    document.getElementById('listening-indicator').style.display = 'none';
-
-    const spokenWords = event.results[0][0].transcript;
-    console.log('User said:', spokenWords);
-    checkAnswer(spokenWords);
-  };
-
-  recognition.onerror = function(event) {
-    // Hide listening indicator
-    document.getElementById('listening-indicator').style.display = 'none';
-
-    console.error('Speech recognition error detected:', event.error);
-    speakText('Sorry, I did not catch that. Please try again.')
-      .then(() => {
-        playBeep();
-        startListening();
-      });
-  };
-
-  recognition.onend = function() {
-    console.log('Speech recognition ended.');
-  };
 }
+
+// Initialize the application after user interaction
+window.onload = function() {
+  if (!('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) || !synth) {
+    alert('Your browser does not support speech recognition or speech synthesis. Please try this application in a supported browser like Google Chrome.');
+  } else {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+
+    // Add event handlers for recognition
+    recognition.onstart = function() {
+      console.log('Speech recognition started.');
+    };
+
+    recognition.onspeechstart = function() {
+      console.log('User started speaking.');
+    };
+
+    recognition.onspeechend = function() {
+      console.log('User stopped speaking.');
+      recognition.stop();
+    };
+
+    recognition.onresult = function(event) {
+      console.log('Speech recognition result received.');
+      // Hide listening indicator
+      document.getElementById('listening-indicator').style.display = 'none';
+
+      const spokenWords = event.results[0][0].transcript;
+      console.log('User said:', spokenWords);
+      checkAnswer(spokenWords);
+    };
+
+    recognition.onerror = function(event) {
+      // Hide listening indicator
+      document.getElementById('listening-indicator').style.display = 'none';
+
+      console.error('Speech recognition error detected:', event.error);
+      speakText('Sorry, I did not catch that. Please try again.')
+        .then(() => {
+          playBeep();
+          startListening();
+        });
+    };
+
+    recognition.onend = function() {
+      console.log('Speech recognition ended.');
+    };
+
+    // Wait for user interaction before starting the application
+    document.getElementById('start-button').addEventListener('click', () => {
+      // Request microphone access
+      navigator.mediaDevices.getUserMedia({ audio: true })
+        .then(function(stream) {
+          // Microphone access granted
+          startApplication();
+        })
+        .catch(function(err) {
+          console.error('Microphone access denied:', err);
+          alert('Microphone access is required for this application to work.');
+        });
+    });
+  }
+};
 
 // Function to check the answer
 function checkAnswer(userResponse) {
@@ -215,28 +236,3 @@ function playBeep() {
   oscillator.start();
   oscillator.stop(context.currentTime + 0.2); // Beep lasts 0.2 seconds
 }
-
-// Initialize the application after user interaction
-window.onload = function() {
-  if (!SpeechRecognition || !synth) {
-    alert('Your browser does not support speech recognition or speech synthesis. Please try this application in a supported browser like Google Chrome.');
-  } else {
-    recognition = new SpeechRecognition();
-    recognition.continuous = false;
-    recognition.interimResults = false;
-
-    // Wait for user interaction before starting the application
-    document.getElementById('start-button').addEventListener('click', () => {
-      // Request microphone access
-      navigator.mediaDevices.getUserMedia({ audio: true })
-        .then(function(stream) {
-          // Microphone access granted
-          startApplication();
-        })
-        .catch(function(err) {
-          console.error('Microphone access denied:', err);
-          alert('Microphone access is required for this application to work.');
-        });
-    });
-  }
-};
