@@ -4,8 +4,22 @@ body {
   background-color: #f0f8ff;
 }
 
-#spinner-container {
-  margin: 20px auto;
+#start-container {
+  margin-top: 50px;
+}
+
+#start-button {
+  padding: 15px 30px;
+  font-size: 24px;
+  cursor: pointer;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 8px;
+}
+
+#start-button:hover {
+  background-color: #45a049;
 }
 
 #question-container {
@@ -20,4 +34,10 @@ body {
 #feedback-text {
   font-size: 24px;
   margin-top: 20px;
+}
+
+#listening-indicator {
+  font-size: 18px;
+  color: #555;
+  margin-top: 10px;
 }
