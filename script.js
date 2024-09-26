@@ -1,13 +1,13 @@
 // Data structure for the spinner items
 const spinnerData = [
-  { imageSrc: 'images/a_alligator.webp', word: 'alligator', initialSound: '/a/' },
-  { imageSrc: 'images/a_amulet.webp', word: 'amulet', initialSound: '/a/' },
-  { imageSrc: 'images/a_anchor.webp', word: 'anchor', initialSound: '/a/' },
-  { imageSrc: 'images/a_ant.webp', word: 'ant', initialSound: '/a/' },
-  { imageSrc: 'images/a_apple.webp', word: 'apple', initialSound: '/a/' },
-  { imageSrc: 'images/a_arrow.webp', word: 'arrow', initialSound: '/a/' },
-  { imageSrc: 'images/a_astronaut.webp', word: 'astronaut', initialSound: '/a/' },
-  { imageSrc: 'images/a_ax.webp', word: 'ax', initialSound: '/a/' },
+  { imageSrc: 'images/letter_a/a_alligator.webp', word: 'alligator', initialSound: '/a/' },
+  { imageSrc: 'images/letter_a/a_amulet.webp', word: 'amulet', initialSound: '/a/' },
+  { imageSrc: 'images/letter_a/a_anchor.webp', word: 'anchor', initialSound: '/a/' },
+  { imageSrc: 'images/letter_a/a_ant.webp', word: 'ant', initialSound: '/a/' },
+  { imageSrc: 'images/letter_a/a_apple.webp', word: 'apple', initialSound: '/a/' },
+  { imageSrc: 'images/letter_a/a_arrow.webp', word: 'arrow', initialSound: '/a/' },
+  { imageSrc: 'images/letter_a/a_astronaut.webp', word: 'astronaut', initialSound: '/a/' },
+  { imageSrc: 'images/letter_a/a_ax.webp', word: 'ax', initialSound: '/a/' },
 ];
 
 // Initialize variables
